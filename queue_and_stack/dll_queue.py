@@ -14,6 +14,8 @@ Think of it like this for queue:
 A person is in line for movie tickets. The person in the front, will get a ticket first before the person in the back, who will receive theirs last.
 
 Time complexity: O(1) - constant.
+
+### access / finding in lists is more difficult. removing things from the middle.
 """
 
 class Queue:
