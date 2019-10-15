@@ -7,8 +7,7 @@ class TextBuffer:
         self.storage = DoublyLinkedList()
 
         if init:
-            for char in init:
-                self.storage.add_to_tail(char)
+            self.append(init)
 
     def __str__(self):
         #print contents of buffer
@@ -50,13 +49,18 @@ class TextBuffer:
 
         #self.append(string_to_join)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     text = TextBuffer("Super")
-
     print(text)
-
-    text.join_string("bubaubauba")
-
+    text.join_string("califragilistic")
+    
     print(text)
-
-    text.append(" asldaskld")
+    text.append(" is ")
+    text.join(TextBuffer("weird."))
+    print(text)
+    text.delete_back(6)
+    print(text)
+    text.prepend("Hey! ")
+    print(text)
+    text.delete_front(5)
+    print(text)
