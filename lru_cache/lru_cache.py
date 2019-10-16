@@ -1,3 +1,12 @@
+from doubly_linked_list import DoublyLinkedList
+import sys
+sys.path.append('../doubly_linked_list')
+
+#we need:
+#fast lookup. fast removal. dict has a key / value relationship.
+#how do you know where the lru is?
+#dll instant access and remove in constant time, can touch both nodes and pop out. do not have to resize the list. no need to shift things around. no need for linearity. dll is an abstraction of pointers.
+
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it
@@ -7,6 +16,10 @@ class LRUCache:
     to every node stored in the cache.
     """
     def __init__(self, limit=10):
+        self.limit = limit  #limit is implied as param
+        self.dll = DoublyLinkedList() #provides access to my helper methods
+        self.size = 0
+        self.storage = {} #dirs say to create a dict. so here.
         pass
 
     """
@@ -18,6 +31,8 @@ class LRUCache:
     """
     def get(self, key):
         pass
+    #this will utilize something like if this key is in the storage dict, so if this key is in self.storage, do something.
+    #this will also need to be able to use move_to_front() from my dll?
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -30,4 +45,7 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
+        #going to need to use #add_to_head()?
+        #going to need to use #remove_from_tail()?
+        #i don't know.
         pass
