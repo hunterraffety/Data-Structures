@@ -34,8 +34,8 @@ class LRUCache:
             node = self.storage[key] #this key exists, so we will "reinvigorate it" and make it the most recently thing, by moving it to the front
     #this will utilize something like if this key is in the storage dict, so if this key is in self.storage, do something.
     #this will also need to be able to use move_to_front() from my dll?
-            self.dll.move_to_front(node) #shifts our guy around. shakes a can of soda to make it active.
-            return node
+            self.dll.move_to_end(node) #shifts our guy around. shakes a can of soda to make it active.
+            return node.value[1]
         else:
             return None
 
@@ -53,10 +53,24 @@ class LRUCache:
         #going to need to use #add_to_head()?
         #going to need to use #remove_from_tail()?
         #i don't know.
+        # in the case where the key exists, overwrite old value with the old key with the newly specific value
         if key in self.storage: #
             node = self.storage[key] #references key param to create node
-            node.value = [key, value] #sets value prop on node
-            self.add_to_head(key)
+            node.value = (key, value) #sets value prop on node
+            self.dll.move_to_end(node)
+            return
+        
         #needs another if, because the cache may be at max capacity
+        if self.size == self.limit:
+            del self.storage[self.dll.head.value[0]]
+            self.dll.remove_from_head()
+            self.size -= 1
+
+
+        #add the key-value pair to the cache
+        #add the ll to the tail
+        self.dll.add_to_tail((key, value))
+        #add to dictionary
+        self.storage[key] = self.dll.tail
+        self.size += 1
         #needs a case where its not existent? I think
-        pass
