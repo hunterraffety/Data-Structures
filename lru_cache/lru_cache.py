@@ -16,10 +16,10 @@ class LRUCache:
     to every node stored in the cache.
     """
     def __init__(self, limit=10):
-        self.limit = limit  #limit is implied as param
+        self.limit = limit  #limit is implied as param #max
         self.dll = DoublyLinkedList() #provides access to my helper methods
-        self.size = 0
-        self.storage = {} #dirs say to create a dict. so here.
+        self.size = 0 #needs to be able to know it's own size to compare against the limit being set
+        self.storage = {} #dirs say to create a dict. so here. #stores nodes
         pass
 
     """
@@ -30,9 +30,14 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        pass
+        if key in self.storage:
+            node = self.storage[key] #this key exists, so we will "reinvigorate it" and make it the most recently thing, by moving it to the front
     #this will utilize something like if this key is in the storage dict, so if this key is in self.storage, do something.
     #this will also need to be able to use move_to_front() from my dll?
+            self.dll.move_to_front(node) #shifts our guy around. shakes a can of soda to make it active.
+            return node
+        else:
+            return None
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -48,4 +53,10 @@ class LRUCache:
         #going to need to use #add_to_head()?
         #going to need to use #remove_from_tail()?
         #i don't know.
+        if key in self.storage: #
+            node = self.storage[key] #references key param to create node
+            node.value = [key, value] #sets value prop on node
+            self.add_to_head(key)
+        #needs another if, because the cache may be at max capacity
+        #needs a case where its not existent? I think
         pass
