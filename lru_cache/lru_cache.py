@@ -20,7 +20,6 @@ class LRUCache:
         self.dll = DoublyLinkedList() #provides access to my helper methods
         self.size = 0 #needs to be able to know it's own size to compare against the limit being set
         self.storage = {} #dirs say to create a dict. so here. #stores nodes
-        pass
 
     """
     Retrieves the value associated with the given key. Also
@@ -31,10 +30,13 @@ class LRUCache:
     """
     def get(self, key):
         if key in self.storage:
+            print(key)
             node = self.storage[key] #this key exists, so we will "reinvigorate it" and make it the most recently thing, by moving it to the front
     #this will utilize something like if this key is in the storage dict, so if this key is in self.storage, do something.
     #this will also need to be able to use move_to_front() from my dll?
-            self.dll.move_to_end(node) #shifts our guy around. shakes a can of soda to make it active.
+            print(node.value)
+            self.dll.move_to_end(node)  #shifts our guy around. shakes a can of soda to make it active.
+            print(f"node: {node.value} - node value[1]: {node.value[1]}")
             return node.value[1]
         else:
             return None
@@ -54,7 +56,8 @@ class LRUCache:
         #going to need to use #remove_from_tail()?
         #i don't know.
         # in the case where the key exists, overwrite old value with the old key with the newly specific value
-        if key in self.storage: #
+        if key in self.storage:  #
+            print(key, value)
             node = self.storage[key] #references key param to create node
             node.value = (key, value) #sets value prop on node
             self.dll.move_to_end(node)
@@ -67,10 +70,10 @@ class LRUCache:
             self.size -= 1
 
 
-        #add the key-value pair to the cache
-        #add the ll to the tail
+        # add the key-value pair to the cache
+        # add the ll to the tail
         self.dll.add_to_tail((key, value))
-        #add to dictionary
+        # add to dictionary
         self.storage[key] = self.dll.tail
         self.size += 1
         #needs a case where its not existent? I think
